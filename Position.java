@@ -1,17 +1,23 @@
+import java.util.LinkedList;
+import java.util.List;
+
 public class Position {
 
     private int row;
     private int col;
+    private List<Piece> pieces;
 
     /**
      * Constructor for Position.
      *
      * row The row index of the position.
      * col The column index of the position.
+     * A linked record of pieces will be built.
      */
     public Position(int row, int col) {
         this.row = row;
         this.col = col;
+        this.pieces = new LinkedList<>();
     }
 
     /**
@@ -51,6 +57,13 @@ public class Position {
      */
     public boolean equals(Position other) {
         return this.row == other.row && this.col == other.col;
+    }
+
+    /**
+     * We will get a piece and remove him from the list
+     */
+    public void removePiece(Piece piece) {
+        pieces.remove(piece);
     }
 
     /**

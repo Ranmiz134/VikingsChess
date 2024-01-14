@@ -1,7 +1,6 @@
 public class Pawn extends ConcretePiece {
 
-    //track if the pawn has moved.
-    private boolean hasMoved;
+    private int kills;
 
     /**
      * Constructor for pawn.
@@ -10,32 +9,34 @@ public class Pawn extends ConcretePiece {
      * type the symbol of pawn.
      *
      */
-    public Pawn(Player owner, String type,Position position) {
-        super(owner,"♟", position);
-        this.hasMoved = false;
+    public Pawn(Player owner) {
+        this.owner = owner;
+        this.dis = 0;
+        this.kills = 0;
     }
 
-    /**
-     * Check if the pawn has moved.
-     *
-     * @return true if the pawn has moved, false otherwise.
-     */
-    public boolean hasMoved() {
-        return this.hasMoved;
+    public void addKill() {
+        kills++;
     }
-
-    /**
-     * Move the pawn to a new position.
-     */
-    public void move() {
-        // Additional logic for moving a pawn, updating position....
-        this.hasMoved = true;
+    public void removeKill() {
+        kills--;
+    }
+    public int getKills() {
+        return kills;
     }
 
     /**
      * @return the symbol of pawn piece.
      */
     public String getType() {
-        return "♟";  // Unicode character for pawn.
+        if(this.owner.isPlayerOne())
+            return "♙";
+
+        return "♟";
+    }
+
+    @Override
+    public String toString() {
+        return null;
     }
 }

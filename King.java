@@ -1,8 +1,5 @@
 public class King extends ConcretePiece {
 
-    //track if the King has moved.
-    private boolean hasMoved;
-
     /**
      * Constructor for pawn.
      *
@@ -10,32 +7,21 @@ public class King extends ConcretePiece {
      * type the symbol of pawn.
      *
      */
-    public King(String type,Position position) {
-        super(new ConcretePlayer(true),"♚", position);
-        this.hasMoved = false;
-    }
 
-    /**
-     * Check if the King has moved.
-     *
-     * @return true if the King has moved, false otherwise.
-     */
-    public boolean hasMoved() {
-        return this.hasMoved;
-    }
-
-    /**
-     * Move the King to a new position.?????
-     */
-    public void move() {
-        // Additional logic for moving a pawn, updating position....
-        this.hasMoved = true;
+    public King(Player playerOne) {
+        this.owner = playerOne;
+        this.dis = 0;
     }
 
     /**
      * @return the symbol of King piece.
      */
     public String getType() {
-        return "♚";  // Unicode character for King.
+        return "♔";  // Unicode character for King.
+    }
+
+    @Override
+    public String toString() {
+        return "K"  + sn + ": ";
     }
 }

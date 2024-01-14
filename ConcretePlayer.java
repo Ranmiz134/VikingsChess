@@ -1,6 +1,6 @@
 public class ConcretePlayer implements Player {
 
-    private boolean isPlayerOne;
+    private boolean isPlayerOne; //player one-protector, player two-attack
     private int wins;
 
     /**
