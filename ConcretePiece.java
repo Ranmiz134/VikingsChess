@@ -1,3 +1,7 @@
+//Shmuel Ben-Atar 208007138
+//Ran Mizrahi 314809625
+//ConcretePiece.java
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,7 +11,6 @@ public abstract class ConcretePiece implements Piece {
     private final List<Position> positions = new ArrayList<>();
     protected int sn; //serial number
     protected int dis; //distance
-    protected int kills; //How many kills commit the piece
 
     /**
      * Get the player who owns the piece.
@@ -86,17 +89,5 @@ public abstract class ConcretePiece implements Piece {
     @Override
     abstract public String toString();
 
-    /**
-     * The function adds a kill to the pawn
-     */
-    public void addKill() {
-        kills++;
-    }
 
-    /**
-     * return how many kills their is to the pawn
-     */
-    public int getKills() {
-        return kills;
-    }
 }

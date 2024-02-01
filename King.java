@@ -1,3 +1,7 @@
+//Shmuel Ben-Atar 208007138
+//Ran Mizrahi 314809625
+//King.java
+
 public class King extends ConcretePiece {
 
     /**

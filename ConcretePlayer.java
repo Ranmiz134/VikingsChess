@@ -1,3 +1,7 @@
+//Shmuel Ben-Atar 208007138
+//Ran Mizrahi 314809625
+//ConcretePlayer.java
+
 public class ConcretePlayer implements Player {
 
     private boolean isPlayerOne; //player one-protector, player two-attack

@@ -1,7 +1,8 @@
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Stack;
+//Shmuel Ben-Atar 208007138
+//Ran Mizrahi 314809625
+//GameLogic.java
+
+import java.util.*;
 
 public class GameLogic implements PlayableLogic {
 
@@ -50,17 +51,17 @@ public class GameLogic implements PlayableLogic {
 
         switchTurn();
 
-        boolean kindDied = isKingSurrounded();
+        boolean kingDied = isKingSurrounded();
 
         boolean allRedDied = blueEatAllRed();
 
         // If the game is finished, determine the winner and print the win message
         if(gameFinished) {
-            if (kindDied)
-                winner= playerTwo;
+            if (kingDied)
+                winner = playerTwo;
             else {
                 if (kingWin() || allRedDied)
-                    winner= playerOne;
+                    winner = playerOne;
            }
 
             winner.win();
@@ -141,17 +142,13 @@ public class GameLogic implements PlayableLogic {
             for(j = 4; j <= 6; j++) {
                 if( i !=5 || j !=5) {
                     board[i][j] = new Pawn(playerOne);
-                    Position newP = new Position(i, j);
-                    positions[i][j] = newP;
-                    board[i][j].addPosition(newP);
+                    board[i][j].addPosition(new Position(i, j));
                     addStepToPos(i, j);
                     pieces.add(board[i][j]);
                 }
                 else {
                     board[i][j] = new King(playerOne);
-                    Position newP = new Position(i, j);
-                    positions[i][j] = newP;
-                    board[i][j].addPosition(newP);
+                    board[i][j].addPosition(new Position(i, j));
                     addStepToPos(i, j);
                     pieces.add(board[i][j]);
                 }
@@ -161,44 +158,36 @@ public class GameLogic implements PlayableLogic {
         board[3][5] = new Pawn(playerOne); board[3][5].addPosition(new Position(3, 5)); addStepToPos(3, 5);
         board[5][7] = new Pawn(playerOne); board[5][7].addPosition(new Position(5, 7)); addStepToPos(5, 7);
         board[7][5] = new Pawn(playerOne); board[7][5].addPosition(new Position(7, 5)); addStepToPos(7, 5);
-        pieces.add(board[5][3]); positions[5][3] = new Position(5, 3);
-        pieces.add(board[3][5]); positions[3][5] = new Position(3, 5);
-        pieces.add(board[5][7]); positions[5][7] = new Position(5, 7);
-        pieces.add(board[7][5]); positions[7][5] = new Position(7, 5);
+        pieces.add(board[5][3]);
+        pieces.add(board[3][5]);
+        pieces.add(board[5][7]);
+        pieces.add(board[7][5]);
 
         //player two
         for(i = 3; i<=7; i++) {
             board[0][i] = new Pawn(playerTwo);
-            Position newP = new Position(0, i);
-            positions[0][i] = newP;
-            board[0][i].addPosition(newP);
+            board[0][i].addPosition(new Position(0, i));
             addStepToPos(0, i);
             pieces.add(board[0][i]);
         }
 
         for(i = 3; i <= 7; i++) {
             board[i][0] = new Pawn(playerTwo);
-            Position newP = new Position(i, 0);
-            positions[i][0] = newP;
-            board[i][0].addPosition(newP);
+            board[i][0].addPosition(new Position(i, 0));
             addStepToPos(i, 0);
             pieces.add(board[i][0]);
         }
 
         for(i = 3; i <= 7; i++) {
             board[10][i] = new Pawn(playerTwo);
-            Position newP = new Position(10, i);
-            positions[10][i] = newP;
-            board[10][i].addPosition(newP);
+            board[10][i].addPosition(new Position(10, i));
             addStepToPos(10, i);
             pieces.add(board[10][i]);
         }
 
         for(i = 3; i <= 7; i++) {
             board[i][10] = new Pawn(playerTwo);
-            Position newP = new Position(i, 10);
-            positions[i][10] = newP;
-            board[i][10].addPosition(newP);
+            board[i][10].addPosition(new Position(i, 10));
             addStepToPos(i, 10);
             pieces.add(board[i][10]);
         }
@@ -207,10 +196,10 @@ public class GameLogic implements PlayableLogic {
         board[5][1] = new Pawn(playerTwo); board[5][1].addPosition(new Position(5, 1)); addStepToPos(5, 1);
         board[9][5] = new Pawn(playerTwo); board[9][5].addPosition(new Position(9, 5)); addStepToPos(9, 5);
         board[5][9] = new Pawn(playerTwo); board[5][9].addPosition(new Position(5, 9)); addStepToPos(5, 9);
-        pieces.add(board[1][5]); positions[1][5] = new Position(1, 5);
-        pieces.add(board[5][1]); positions[5][1] = new Position(5, 1);
-        pieces.add(board[9][5]); positions[9][5] = new Position(9, 5);
-        pieces.add(board[5][9]); positions[5][9] = new Position(5, 9);
+        pieces.add(board[1][5]);
+        pieces.add(board[5][1]);
+        pieces.add(board[9][5]);
+        pieces.add(board[5][9]);
 
         //set for every piece sn
         board[3][0].setSn(1); board[4][0].setSn(2); board[5][0].setSn(3); board[6][0].setSn(4); board[7][0].setSn(5); board[5][1].setSn(6);
@@ -492,9 +481,9 @@ public class GameLogic implements PlayableLogic {
         //Iterate over all pieces on the board
         for (ConcretePiece piece : pieces) {
             //Check if the piece belongs to player one (blue)
-            if (piece.getOwner() == playerOne) {
+            if (piece.getOwner() == playerOne && piece instanceof Pawn) {
                 //Increment the sum by the number of kills the blue piece has
-                sum += piece.getKills();
+                sum += ((Pawn) piece).getKills();
             }
         }
         //If the sum of kills of all blue pieces is equal to the total number of red pieces (24), mark the game as finished
@@ -636,19 +625,17 @@ public class GameLogic implements PlayableLogic {
         pieces.sort(killCountComper); //sorted by the number of kills
         for(i = 0; i < pieces.size(); i++) {
             String ans = "";
-            if (pieces.get(i).getKills() > 0) {
-                if(pieces.get(i).getOwner() == playerOne) {
-                    if(pieces.get(i).getType().equals("♔"))
-                        ans = ans + "K";
-
-                    else
-                        ans= ans + "D";
-                }
-                else if(pieces.get(i).getOwner() == playerTwo)
+            if (pieces.get(i) instanceof Pawn) {
+                Pawn p1 = (Pawn) pieces.get(i);
+            if (p1.getKills() > 0) {
+                if (p1.getOwner() == playerOne) {
+                    ans = ans + "D";
+                } else if (p1.getOwner() == playerTwo)
                     ans = ans + "A";
 
-                System.out.println(ans + pieces.get(i).getNumber() + ": " + pieces.get(i).getKills() + " kills");
+                System.out.println(ans + p1.getNumber() + ": " + p1.getKills() + " kills");
             }
+        }
         }
 
         rowOfAsterisks();
@@ -834,30 +821,32 @@ public class GameLogic implements PlayableLogic {
     Comparator<ConcretePiece> killCountComper = new Comparator<ConcretePiece>() {
         public int compare(ConcretePiece p1, ConcretePiece p2) {
             //Compare based on the number of kills
-            if (p1.getKills() > p2.getKills())
-                return -1; //p1 has more kills, so it is considered 'smaller'
+            if (p1 instanceof Pawn && p2 instanceof Pawn) {
+                if (((Pawn) p1).getKills() > ((Pawn) p2).getKills())
+                    return -1; //p1 has more kills, so it is considered 'smaller'
 
-            else if (p1.getKills() < p2.getKills())
-                return 1; //p2 has more kills, so it is considered 'smaller'
+                else if (((Pawn) p1).getKills() < ((Pawn) p2).getKills())
+                    return 1; //p2 has more kills, so it is considered 'smaller'
 
-            else{ //If the number of kills is the same, compare based on the serial number of the piece
-                if (p1.getNumber() < p2.getNumber())
-                    return -1; //p1 has a smaller serial number, so it is considered 'smaller'
+                else { //If the number of kills is the same, compare based on the serial number of the piece
+                    if (p1.getNumber() < p2.getNumber())
+                        return -1; //p1 has a smaller serial number, so it is considered 'smaller'
 
-                else if (p1.getNumber() > p2.getNumber())
-                    return 1; //p2 has a smaller serial number, so it is considered 'smaller'
+                    else if (p1.getNumber() > p2.getNumber())
+                        return 1; //p2 has a smaller serial number, so it is considered 'smaller'
 
-                    //If the serial numbers are the same, consider the winner and ownership of the pieces
-                else if ((winner == playerOne && p1.getOwner() == playerOne && p2.getOwner() == playerTwo) || (winner == playerTwo && p1.getOwner() == playerTwo && p2.getOwner() == playerOne))
+                        //If the serial numbers are the same, consider the winner and ownership of the pieces
+                    else if ((winner == playerOne && p1.getOwner() == playerOne && p2.getOwner() == playerTwo) || (winner == playerTwo && p1.getOwner() == playerTwo && p2.getOwner() == playerOne))
                         return 1; //p1 belongs to the winning player or p1 belongs to playerOne and p2 to playerTwo, so p1 is 'smaller'
 
                     else if ((winner == playerOne && p1.getOwner() == playerTwo && p2.getOwner() == playerOne) || (winner == playerTwo && p1.getOwner() == playerOne && p2.getOwner() == playerTwo))
                         return -1; //p2 belongs to the winning player or p2 belongs to playerOne and p1 to playerTwo, so p1 is 'larger'
 
                 }
-
+            }
             return 0; //Pieces are considered equal
-        }
+
+            }
     };
 
     /**

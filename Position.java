@@ -1,5 +1,11 @@
+//Shmuel Ben-Atar 208007138
+//Ran Mizrahi 314809625
+//Position.java
+
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 public class Position {
 

@@ -1,6 +1,10 @@
+//Shmuel Ben-Atar 208007138
+//Ran Mizrahi 314809625
+//Pawn.java
+
 public class Pawn extends ConcretePiece {
 
-
+private int kills;
     /**
      * Constructor for pawn.
      *
