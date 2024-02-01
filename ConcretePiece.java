@@ -24,7 +24,7 @@ public abstract class ConcretePiece implements Piece {
      * @return The current position.
      */
     public Position getPosition() {
-        return this.positions.getLast();
+        return this.positions.get(positions.size() - 1);
     }
 
     /**
